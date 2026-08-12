@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup Label="Testing">
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <!-- xunit.v3 brings its own Microsoft.Testing.Platform runner; the VSTest
+         Microsoft.NET.Test.Sdk path discovers no xunit v3 tests. -->
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <!--
       Real PostgreSQL / SQL Server in tests, not the EF in-memory provider:
