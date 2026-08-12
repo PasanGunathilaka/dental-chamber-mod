@@ -1,0 +1,38 @@
+{
+  "scenario_id": "GM-003",
+  "captured_at": "2026-08-12T07:05:08Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [
+    "patient.id",
+    "patient.created",
+    "patient.last_update",
+    "prescription.id",
+    "prescription.created",
+    "prescription.last_update"
+  ],
+  "input": {
+    "patient_name": "New Patient"
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "patient": {
+      "id": "90a4b026-1c96-f111-bb45-900f0ca86b6c",
+      "code": "P000001",
+      "created": "2026-08-12T12:35:08.873",
+      "last_update": "2026-08-12T12:35:08.873"
+    },
+    "prescription_created": true,
+    "prescription": {
+      "id": "91a4b026-1c96-f111-bb45-900f0ca86b6c",
+      "status_id": 5,
+      "code_format_matches_bill_pattern": true,
+      "total_due": 0.0,
+      "created": "2026-08-12T12:35:08.873",
+      "last_update": "2026-08-12T12:35:08.873"
+    }
+  }
+}

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F1A2B3C-9D4E-4F5A-8B6C-1D2E3F4A5B6C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DM.Baseline.Harness</RootNamespace>
+    <AssemblyName>DM.Baseline.Harness</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Same test framework the pre-existing (empty) DM.Server.Tests stub already references —
+         see this harness's own README for why a different, richer runner was NOT introduced. -->
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+
+    <!-- EF6 — same package/version as DM.Models/DM.Repository -->
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+
+    <!-- Newtonsoft.Json — same package/version as DM.ResponseModels/DM.Server -->
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+
+    <!-- Web API 2 — needed to instantiate the real ApiController subclasses in-process -->
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+
+    <!-- ASP.NET Identity + OWIN — same packages/versions as DM.Server, needed to construct
+         ApplicationUserManager and to fake the OWIN context those constructors read. -->
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\..\..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\..\..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Project references — the real legacy assemblies under test. No mocks, no fakes: every
+         scenario exercises the actual DM.Models/DM.Service/DM.Repository/DM.AuthServer code. -->
+    <ProjectReference Include="..\..\..\..\DM.Models\DM.Models.csproj">
+      <Project>{76528B50-5265-4AA8-8CFD-2F93AE4FBE93}</Project>
+      <Name>DM.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DM.RequestModels\DM.RequestModels.csproj">
+      <Project>{29E324EF-8D66-47EF-94BA-AFA1A92EE1F1}</Project>
+      <Name>DM.RequestModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DM.Repository\DM.Repository.csproj">
+      <Project>{3726409D-4CC5-4A23-A2FD-D7E9940D3F4B}</Project>
+      <Name>DM.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DM.Service\DM.Service.csproj">
+      <Project>{CFF7BA40-4228-48DF-B14C-B9741889F004}</Project>
+      <Name>DM.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DM.ViewModels\DM.ViewModels.csproj">
+      <Project>{358C17C9-0E45-400F-913C-6EE39345789C}</Project>
+      <Name>DM.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\DM.Server\DM.Server.csproj">
+      <Project>{298D6D33-15A8-478F-ACAF-F0387A6F57EF}</Project>
+      <Name>DM.Server</Name>
+      <!-- DM.Server.csproj's own AssemblyName is DM.AuthServer — see this project's RootNamespace
+           divergence, confirmed in codebase-report.md and re-confirmed by reading the csproj directly
+           this run. Referencing it pulls in the real PatientCreateController, PrescriptionController,
+           PaymentController, MedicalServiceController, MedicalInfoController, InventoryController,
+           ProductController, InventoryReportController, AppointmentController, UserController, and the
+           DM.AuthServer.Service / DM.AuthServer.Repository / DM.AuthServer.Models / DM.AuthServer.Migrations
+           types every MOD-005 scenario and every controller-level scenario needs. -->
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Infrastructure\RepoPaths.cs" />
+    <Compile Include="Infrastructure\GitInfo.cs" />
+    <Compile Include="Infrastructure\FixtureWriter.cs" />
+    <Compile Include="Infrastructure\TestDatabase.cs" />
+    <Compile Include="Infrastructure\AssemblyInit.cs" />
+    <Compile Include="Infrastructure\DbCleaner.cs" />
+    <Compile Include="Infrastructure\OwinTestContext.cs" />
+    <Compile Include="Infrastructure\ReflectionHelpers.cs" />
+    <Compile Include="Infrastructure\DomainSeed.cs" />
+    <Compile Include="Scenarios\GM001_GM004_CodeFormatTests.cs" />
+    <Compile Include="Scenarios\GM002_GM003_PatientCreateTests.cs" />
+    <Compile Include="Scenarios\GM005_GM006_ServerSideGapTests.cs" />
+    <Compile Include="Scenarios\GM007_GM008_BillCloseReopenTests.cs" />
+    <Compile Include="Scenarios\GM009_GM010_PatientMedicalServiceAddListTests.cs" />
+    <Compile Include="Scenarios\GM011_CurrentBillMechanismTests.cs" />
+    <Compile Include="Scenarios\GM012_PatientCascadeDeleteTests.cs" />
+    <Compile Include="Scenarios\GM013_GM014_GM015_DuplicateNameTests.cs" />
+    <Compile Include="Scenarios\GM016_GM017_MedicalServiceTotalChargeTests.cs" />
+    <Compile Include="Scenarios\GM018_MedicalInfoEmptyListTests.cs" />
+    <Compile Include="Scenarios\GM019_PatientMedicalInfoOrphanTests.cs" />
+    <Compile Include="Scenarios\GM020_GM021_InventoryProductAcceptTests.cs" />
+    <Compile Include="Scenarios\GM022_GM023_InventoryReportOnHandTests.cs" />
+    <Compile Include="Scenarios\GM024_ProductCascadeDeleteTests.cs" />
+    <Compile Include="Scenarios\GM025_AppointmentGetByDateTests.cs" />
+    <Compile Include="Scenarios\GM026_GM027_DeleteUserTests.cs" />
+    <Compile Include="Scenarios\GM028_GM029_CreateUpdateUserTests.cs" />
+    <Compile Include="Scenarios\GM030_GM031_GM032_UpdatePasswordTests.cs" />
+    <Compile Include="Scenarios\GM033_GM034_GM035_RoleUserListFilterTests.cs" />
+    <Compile Include="Scenarios\GM036_GM037_GM038_CheckPermissionTests.cs" />
+    <Compile Include="Scenarios\GM039_GM040_PermissionSeedingTests.cs" />
+    <Compile Include="Scenarios\GM041_PrescriptionTotalDiscountAmountTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

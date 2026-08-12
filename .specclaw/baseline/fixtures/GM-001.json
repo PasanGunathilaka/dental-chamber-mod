@@ -1,0 +1,43 @@
+{
+  "scenario_id": "GM-001",
+  "captured_at": "2026-08-12T07:05:08Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "inputs": [
+      "1",
+      "999999",
+      "9999999",
+      "99999999"
+    ]
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "results": [
+      {
+        "input_right": "1",
+        "generated_code": "P000001",
+        "generated_code_length": 7
+      },
+      {
+        "input_right": "999999",
+        "generated_code": "P999999",
+        "generated_code_length": 7
+      },
+      {
+        "input_right": "9999999",
+        "generated_code": "P9999999",
+        "generated_code_length": 8
+      },
+      {
+        "input_right": "99999999",
+        "generated_code": "P99999999",
+        "generated_code_length": 9
+      }
+    ]
+  }
+}

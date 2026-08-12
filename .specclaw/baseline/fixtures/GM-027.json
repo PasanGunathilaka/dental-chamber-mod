@@ -1,0 +1,18 @@
+{
+  "scenario_id": "GM-027",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "authenticated_user_id": "6b511ed9-b643-4ed1-95cc-589617e5825c",
+    "target_user_id": "322cd923-69ef-46bf-8e6e-e407f5c56ec5"
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "user_y_still_exists": false
+  }
+}

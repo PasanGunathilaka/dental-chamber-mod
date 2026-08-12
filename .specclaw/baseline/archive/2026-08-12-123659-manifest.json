@@ -1,0 +1,11 @@
+{
+  "manifest_schema": 3,
+  "plugin_version": "0.10.0",
+  "project_root": "/c/Learnings/Projects/legacy/dental-chamber/Source/App",
+  "generated": "2026-08-12",
+  "generated_at": "2026-08-12T06:52:14Z",
+  "total_scenarios": 41,
+  "fixtures": [
+  ],
+  "missing_scenarios": ["GM-001", "GM-002", "GM-003", "GM-004", "GM-005", "GM-006", "GM-007", "GM-008", "GM-009", "GM-010", "GM-011", "GM-012", "GM-013", "GM-014", "GM-015", "GM-016", "GM-017", "GM-018", "GM-019", "GM-020", "GM-021", "GM-022", "GM-023", "GM-024", "GM-025", "GM-026", "GM-027", "GM-028", "GM-029", "GM-030", "GM-031", "GM-032", "GM-033", "GM-034", "GM-035", "GM-036", "GM-037", "GM-038", "GM-039", "GM-040", "GM-041"]
+}

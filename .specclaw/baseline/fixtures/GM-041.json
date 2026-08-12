@@ -1,0 +1,46 @@
+{
+  "scenario_id": "GM-041",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "pairs": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        10.5,
+        5.0
+      ],
+      [
+        0.0,
+        -5.0
+      ]
+    ]
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "results": [
+      {
+        "discount_amount": 0.0,
+        "fixed_discount": 0.0,
+        "total_discount_amount": 0.0
+      },
+      {
+        "discount_amount": 10.5,
+        "fixed_discount": 5.0,
+        "total_discount_amount": 15.5
+      },
+      {
+        "discount_amount": 0.0,
+        "fixed_discount": -5.0,
+        "total_discount_amount": -5.0
+      }
+    ]
+  }
+}

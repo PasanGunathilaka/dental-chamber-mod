@@ -1,0 +1,7 @@
+{
+  "stack": ".NET Framework 4.8 / ASP.NET Web API 2 + OWIN / Entity Framework 6.4.4 / MSTest v1",
+  "build_command": "msbuild .specclaw/baseline/harness/DM.Baseline.Harness/DM.Baseline.Harness.csproj /p:Configuration=Debug /t:Restore,Build",
+  "run_command": "vstest.console.exe .specclaw/baseline/harness/DM.Baseline.Harness/bin/Debug/DM.Baseline.Harness.dll",
+  "fixtures_output_dir": ".specclaw/baseline/fixtures",
+  "runtime_version_source": "Environment.Version.ToString() (FixtureWriter.cs)"
+}

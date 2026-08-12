@@ -1,0 +1,22 @@
+{
+  "scenario_id": "GM-002",
+  "captured_at": "2026-08-12T07:05:08Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [
+    "patient_b_id_returned"
+  ],
+  "input": {
+    "patient_a_edited_code": "P000002",
+    "patient_b_name": "Patient B"
+  },
+  "output": {
+    "http_status": 200,
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "patient_b_persisted": true,
+    "patient_b_id_returned": "8ea4b026-1c96-f111-bb45-900f0ca86b6c"
+  }
+}

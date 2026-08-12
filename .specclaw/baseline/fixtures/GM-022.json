@@ -1,0 +1,25 @@
+{
+  "scenario_id": "GM-022",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "from": "2026-01-01T00:00:00",
+    "to": "2026-01-31T00:00:00",
+    "later_movement_date": "2026-02-15T00:00:00"
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "report": [
+      {
+        "on_hand": 8,
+        "received": 0,
+        "shipped": 0
+      }
+    ]
+  }
+}

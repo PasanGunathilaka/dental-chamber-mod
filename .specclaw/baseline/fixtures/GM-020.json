@@ -1,0 +1,21 @@
+{
+  "scenario_id": "GM-020",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "product_on_hand_before": 10,
+    "shipped_quantity": 999
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "inventory": {
+      "received_or_shipped_quantity": 999
+    },
+    "product_onhand_changed": false
+  }
+}

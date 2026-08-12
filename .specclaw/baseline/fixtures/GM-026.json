@@ -1,0 +1,21 @@
+{
+  "scenario_id": "GM-026",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [
+    "user_x_still_exists"
+  ],
+  "input": {
+    "authenticated_user_id": "2ee9e459-f811-4a28-abdd-b1b15e7acb4a",
+    "target_user_id": "2ee9e459-f811-4a28-abdd-b1b15e7acb4a"
+  },
+  "output": {
+    "outcome": "REJECTED",
+    "threw": false,
+    "error_code": "CANNOT_DELETE_OWN_ACCOUNT",
+    "is_bad_request": true,
+    "user_x_still_exists": true
+  }
+}

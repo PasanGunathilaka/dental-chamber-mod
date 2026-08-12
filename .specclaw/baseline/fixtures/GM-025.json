@@ -1,0 +1,22 @@
+{
+  "scenario_id": "GM-025",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "date": "2026-03-10T00:00:00"
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "appointments_returned_count": 1,
+    "appointments": [
+      {
+        "status_id": 7
+      }
+    ]
+  }
+}

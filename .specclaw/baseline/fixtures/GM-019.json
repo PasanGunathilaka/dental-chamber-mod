@@ -1,0 +1,19 @@
+{
+  "scenario_id": "GM-019",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "tagged_row_count_before_delete": 2
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "patient_deleted": true,
+    "patient_medical_info_rows_remaining_count": 2,
+    "orphaned_rows_reference_deleted_patient_id": true
+  }
+}

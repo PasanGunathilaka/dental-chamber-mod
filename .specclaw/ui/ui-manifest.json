@@ -1,0 +1,72 @@
+{
+  "generated": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3",
+  "total_checklist_rows": 37,
+  "screenshots": [
+    {
+      "scr_id": "SCR-001",
+      "state": "default",
+      "screen": "Login",
+      "file": ".specclaw/ui/screens/SCR-001.png",
+      "sha256": "sha256:fcdc1867ab831689ac117430d1692310ddecfbc41278fdd60b6773fd04d23624",
+      "captured_at": "2026-08-12T04:13:02Z",
+      "legacy_commit_sha": "5ff87d3"
+    },
+    {
+      "scr_id": "SCR-002",
+      "state": "default",
+      "screen": "Patient List",
+      "file": ".specclaw/ui/screens/SCR-002.png",
+      "sha256": "sha256:6eb5c59f48a35fceece36be58608f37a7d11a8c02cdfb7ba00aa0a1a88877198",
+      "captured_at": "2026-08-12T04:17:05Z",
+      "legacy_commit_sha": "5ff87d3"
+    },
+    {
+      "scr_id": "SCR-003",
+      "state": "default",
+      "screen": "Register Patient / Add Services to Bill",
+      "file": ".specclaw/ui/screens/SCR-003.png",
+      "sha256": "sha256:be22b41c9e175e4f87c6d720d0eb39388e04b9459499079452455a033b2c21d8",
+      "captured_at": "2026-08-12T04:17:50Z",
+      "legacy_commit_sha": "5ff87d3"
+    }
+  ],
+  "missing": [
+    {"scr_id": "SCR-003", "state": "add-services", "expected_file": ".specclaw/ui/screens/SCR-003-add-services.png"},
+    {"scr_id": "SCR-004", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-004.png"},
+    {"scr_id": "SCR-004", "state": "medical", "expected_file": ".specclaw/ui/screens/SCR-004-medical.png"},
+    {"scr_id": "SCR-004", "state": "payment", "expected_file": ".specclaw/ui/screens/SCR-004-payment.png"},
+    {"scr_id": "SCR-004", "state": "history", "expected_file": ".specclaw/ui/screens/SCR-004-history.png"},
+    {"scr_id": "SCR-004", "state": "patient", "expected_file": ".specclaw/ui/screens/SCR-004-patient.png"},
+    {"scr_id": "SCR-004", "state": "payment-exceeds-due", "expected_file": ".specclaw/ui/screens/SCR-004-payment-exceeds-due.png"},
+    {"scr_id": "SCR-004", "state": "bill-close-blocked-due", "expected_file": ".specclaw/ui/screens/SCR-004-bill-close-blocked-due.png"},
+    {"scr_id": "SCR-005", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-005.png"},
+    {"scr_id": "SCR-005", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-005-edit-mode.png"},
+    {"scr_id": "SCR-006", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-006.png"},
+    {"scr_id": "SCR-006", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-006-edit-mode.png"},
+    {"scr_id": "SCR-007", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-007.png"},
+    {"scr_id": "SCR-008", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-008.png"},
+    {"scr_id": "SCR-008", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-008-edit-mode.png"},
+    {"scr_id": "SCR-009", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-009.png"},
+    {"scr_id": "SCR-010", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-010.png"},
+    {"scr_id": "SCR-010", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-010-edit-mode.png"},
+    {"scr_id": "SCR-011", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-011.png"},
+    {"scr_id": "SCR-011", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-011-edit-mode.png"},
+    {"scr_id": "SCR-011", "state": "shipment-exceeds-onhand", "expected_file": ".specclaw/ui/screens/SCR-011-shipment-exceeds-onhand.png"},
+    {"scr_id": "SCR-012", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-012.png"},
+    {"scr_id": "SCR-013", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-013.png"},
+    {"scr_id": "SCR-013", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-013-edit-mode.png"},
+    {"scr_id": "SCR-013", "state": "password-fields-visible", "expected_file": ".specclaw/ui/screens/SCR-013-password-fields-visible.png"},
+    {"scr_id": "SCR-014", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-014.png"},
+    {"scr_id": "SCR-014", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-014-edit-mode.png"},
+    {"scr_id": "SCR-015", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-015.png"},
+    {"scr_id": "SCR-015", "state": "edit-mode", "expected_file": ".specclaw/ui/screens/SCR-015-edit-mode.png"},
+    {"scr_id": "SCR-016", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-016.png"},
+    {"scr_id": "SCR-016", "state": "role-selected", "expected_file": ".specclaw/ui/screens/SCR-016-role-selected.png"},
+    {"scr_id": "SCR-017", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-017.png"},
+    {"scr_id": "SCR-017", "state": "demo-user-restricted", "expected_file": ".specclaw/ui/screens/SCR-017-demo-user-restricted.png"},
+    {"scr_id": "SCR-018", "state": "default", "expected_file": ".specclaw/ui/screens/SCR-018.png"}
+  ],
+  "extra": [
+  ]
+}

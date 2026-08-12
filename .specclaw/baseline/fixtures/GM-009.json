@@ -1,0 +1,23 @@
+{
+  "scenario_id": "GM-009",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "submitted_prescription_ids_in_order": [
+      "B",
+      "A"
+    ]
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "prescription_a_prior_rows_survived": true,
+    "prescription_b_prior_rows_deleted": true,
+    "final_row_count_for_prescription_a": 3,
+    "final_row_count_for_prescription_b": 1
+  }
+}

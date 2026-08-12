@@ -1,0 +1,24 @@
+{
+  "scenario_id": "GM-006",
+  "captured_at": "2026-08-12T07:05:08Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [
+    "payment.id"
+  ],
+  "input": {
+    "prescription_total_due_before": 50.0,
+    "payment_amount": 500
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "payment": {
+      "id": "96a4b026-1c96-f111-bb45-900f0ca86b6c",
+      "amount": 500.0
+    },
+    "prescription_totals_recomputed": false
+  }
+}

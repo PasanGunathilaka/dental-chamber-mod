@@ -1,0 +1,38 @@
+{
+  "scenario_id": "GM-016",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [],
+  "input": {
+    "charge": "10",
+    "quantities": [
+      0,
+      1,
+      5
+    ]
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "results": [
+      {
+        "charge": "10",
+        "quantity": 0,
+        "total_charge": 0
+      },
+      {
+        "charge": "10",
+        "quantity": 1,
+        "total_charge": 10
+      },
+      {
+        "charge": "10",
+        "quantity": 5,
+        "total_charge": 50
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "scenario_id": "GM-008",
+  "captured_at": "2026-08-12T07:05:09Z",
+  "anchor_date": "2026-08-12",
+  "legacy_commit_sha": "5ff87d3a0adf7cbab09099bf65d4afc909b78b93",
+  "runtime_version": "4.0.30319.42000",
+  "normalized_fields": [
+    "old_bill.id",
+    "new_bill.id",
+    "old_bill.last_update",
+    "new_bill.created",
+    "new_bill.last_update"
+  ],
+  "input": {
+    "old_bill_total_due_before_close": 0
+  },
+  "output": {
+    "outcome": "OK",
+    "error_code": null,
+    "threw": false,
+    "old_bill_status_closed": true,
+    "new_bill_status_active": true,
+    "new_bill_totals_zeroed": true,
+    "old_bill": {
+      "id": "9ba4b026-1c96-f111-bb45-900f0ca86b6c",
+      "last_update": "2026-08-12T12:35:09.013"
+    },
+    "new_bill": {
+      "id": "9ca4b026-1c96-f111-bb45-900f0ca86b6c",
+      "created": "2026-08-12T12:35:09.013",
+      "last_update": "2026-08-12T12:35:09.013"
+    }
+  }
+}

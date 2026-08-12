@@ -1,0 +1,127 @@
+{
+  "generated": "2026-08-12",
+  "view_technology": "AngularJS 1.x SPA (UI-Router states) styled by one first-party stylesheet, Client/app/styles/style.css, layered on top of the unmodified vendored Bootstrap 3 theme (Client/Content/bootstrap/bootstrap.min.css) plus vendored ng-grid/angular-busy/toaster CSS — link order confirmed in Client/index-dev.html:11-16 and mirrored by Client/Gulpfile.js's getThemeCssSources/getVendorCssSources/\"styles\" task (lines 142-153, 251-258, 322-328, 347-351).",
+  "legacy_commit_sha": "5ff87d3",
+  "token_groups": [
+    {
+      "tk_id": "TK-001",
+      "name": "global-colors",
+      "scope": "global",
+      "status": "GROUNDED",
+      "colors": [
+        {
+          "name": "body-background",
+          "value": "#EBEBEB",
+          "source": "Client/app/styles/style.css:12"
+        },
+        {
+          "name": "body-text-color",
+          "value": "#333",
+          "source": "Client/Content/bootstrap/bootstrap.css:811 (vendored Bootstrap default; not overridden by style.css, which declares no `color` on `body`)"
+        },
+        {
+          "name": "dropdown-menu-background",
+          "value": "#006a4e",
+          "source": "Client/app/styles/style.css:71"
+        },
+        {
+          "name": "dropdown-menu-item-hover-background",
+          "value": "#2e8b57",
+          "source": "Client/app/styles/style.css:75"
+        },
+        {
+          "name": "form-control-background",
+          "value": "#f5f5f5",
+          "source": "Client/app/styles/style.css:80"
+        },
+        {
+          "name": "data-grid-background",
+          "value": "#f5f5f5",
+          "source": "Client/app/styles/style.css:6 (.gridStyle, applied to the ng-grid container on every screen with a data grid)"
+        },
+        {
+          "name": "alert-border-color",
+          "value": "brown",
+          "source": "Client/app/styles/style.css:134"
+        },
+        {
+          "name": "footer-background",
+          "value": "#218283",
+          "source": "Client/app/views/footer.html:1 (inline `style` attribute — unambiguously wins the cascade over style.css's dead `.footer` class rule, since no footer element carries class=\"footer\"; see Named Gaps in ui-inventory.md)"
+        }
+      ]
+    },
+    {
+      "tk_id": "TK-002",
+      "name": "global-typography",
+      "scope": "global",
+      "status": "GROUNDED",
+      "typography": [
+        {
+          "name": "body-text",
+          "family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+          "size": "14px",
+          "weight": "normal (Bootstrap default, not overridden)",
+          "source": "Client/Content/bootstrap/bootstrap.css:809-815 (vendored Bootstrap default; style.css declares no font-family anywhere in the file, confirmed by full read)"
+        },
+        {
+          "name": "navbar-brand",
+          "family": "not evidenced beyond the inherited body font — no font-family declared for .navbar-brand anywhere",
+          "size": "30px",
+          "weight": "not evidenced",
+          "source": "Client/app/styles/style.css:21-24"
+        }
+      ]
+    },
+    {
+      "tk_id": "TK-003",
+      "name": "navbar-background (contested)",
+      "scope": "global",
+      "status": "PROVISIONAL",
+      "provisional_ref": "PQ-004",
+      "colors": [
+        {
+          "name": "navbar-background-candidate-style-css",
+          "value": "#006A4E",
+          "source": "Client/app/styles/style.css:16-20 (.navbar rule, loaded via <link> in Client/index-dev.html:16)"
+        },
+        {
+          "name": "navbar-background-candidate-nav-html",
+          "value": "#218283",
+          "source": "Client/app/views/nav.html:1-4 (.navbar-default rule with !important, injected via ng-include at Client/index-dev.html:23)"
+        }
+      ]
+    },
+    {
+      "tk_id": "TK-004",
+      "name": "dashboard-onhand-grid-cell",
+      "scope": "SCR-009",
+      "status": "GROUNDED",
+      "colors": [
+        {
+          "name": "onhand-cell-background",
+          "value": "#5cb85c",
+          "source": "Client/app/scripts/dashboard/dashboard.controller.js:80 (cellTemplate inline style on the \"OnHand\" grid column)"
+        }
+      ]
+    }
+  ],
+  "omitted": [
+    {
+      "name": "ui-grid/ng-grid vendored theme internals (Client/Content/less/**, Client/Content/css/ui-grid.*.css)",
+      "reason": "Third-party ui-grid/ngGrid plugin CSS/LESS shipped as a vendored dependency, not an authored design decision by this app — its variables.less/core.less/etc. define the grid plugin's own internal look, not this app's own tokens."
+    },
+    {
+      "name": "Materialize CSS default palette (Client/Content/materialize/css/**)",
+      "reason": "Vendored on disk but never referenced by Client/index-dev.html, Client/index-prod.html, or any source array in Client/Gulpfile.js — confirmed inactive, not an active design source for this app."
+    },
+    {
+      "name": "Full Bootstrap 3 default theme palette beyond the values cited in TK-001/TK-002",
+      "reason": "Client/Content/bootstrap/bootstrap.min.css supplies every color/spacing/typography value not explicitly overridden by style.css; enumerating its entire default palette is out of scope for this app's own first-party design tokens — only the specific values this app's own markup/CSS actually consumes or overrides are grounded above."
+    },
+    {
+      "name": "Spacing scale",
+      "reason": "No first-party spacing-scale variables (LESS/SCSS variables, CSS custom properties, or a documented grid unit) were found anywhere in Client/app/styles/style.css or any other first-party source — every spacing value in the templates is an ad hoc inline style or a Bootstrap grid class, not a defined scale."
+    }
+  ]
+}
