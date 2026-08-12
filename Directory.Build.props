@@ -8,7 +8,12 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <!--
+      InvariantGlobalization is deliberately NOT enabled: Microsoft.Data.SqlClient
+      throws "Globalization Invariant Mode is not supported" at runtime, and the
+      one-time migration tool depends on it. Culture-sensitive parsing is pinned to
+      InvariantCulture explicitly at each site instead (see LegacyValueAuditor).
+    -->
   </PropertyGroup>
 
   <!--

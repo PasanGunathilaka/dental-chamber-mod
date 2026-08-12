@@ -88,69 +88,60 @@ public sealed class MigrationRunner(
         AuditReport audit,
         CancellationToken cancellationToken)
     {
-        var blockedIds = audit.Blocking
-            .Select(finding => finding.LegacyId)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        bool Allowed(Guid id) => !blockedIds.Contains(id.ToString());
+        var plan = MigrationPlan.Build(legacy, audit);
 
         await using var transaction = await target.Database.BeginTransactionAsync(cancellationToken);
 
         await WriteIdentityAsync(legacy, cancellationToken);
 
         // Parents before children, matching the foreign keys the new schema declares.
-        target.Patients.AddRange(legacy.Patients.Where(p => Allowed(p.Id))
+        target.Patients.AddRange(legacy.Patients
+            .Where(patient => plan.PatientIds.Contains(patient.Id))
             .Select(LegacyToRebuildMapper.ToPatient));
 
-        target.MedicalServices.AddRange(legacy.MedicalServices.Where(s => Allowed(s.Id))
+        target.MedicalServices.AddRange(legacy.MedicalServices
+            .Where(service => plan.MedicalServiceIds.Contains(service.Id))
             .Select(LegacyToRebuildMapper.ToMedicalService));
 
-        target.MedicalInfos.AddRange(legacy.MedicalInfos.Where(i => Allowed(i.Id))
+        target.MedicalInfos.AddRange(legacy.MedicalInfos
+            .Where(info => plan.MedicalInfoIds.Contains(info.Id))
             .Select(LegacyToRebuildMapper.ToMedicalInfo));
 
-        target.Doctors.AddRange(legacy.Doctors.Where(d => Allowed(d.Id))
+        target.Doctors.AddRange(legacy.Doctors
+            .Where(doctor => plan.DoctorIds.Contains(doctor.Id))
             .Select(LegacyToRebuildMapper.ToDoctor));
 
-        target.Products.AddRange(legacy.Products.Where(p => Allowed(p.Id))
+        target.Products.AddRange(legacy.Products
+            .Where(product => plan.ProductIds.Contains(product.Id))
             .Select(LegacyToRebuildMapper.ToProduct));
 
         await target.SaveChangesAsync(cancellationToken);
 
-        var migratedPatientIds = legacy.Patients.Where(p => Allowed(p.Id))
-            .Select(p => p.Id).ToHashSet();
-        var migratedServiceIds = legacy.MedicalServices.Where(s => Allowed(s.Id))
-            .Select(s => s.Id).ToHashSet();
-
         target.Prescriptions.AddRange(legacy.Prescriptions
-            .Where(bill => Allowed(bill.Id) && migratedPatientIds.Contains(bill.PatientId))
+            .Where(bill => plan.PrescriptionIds.Contains(bill.Id))
             .Select(LegacyToRebuildMapper.ToPrescription));
 
-        target.Inventories.AddRange(legacy.Inventories.Where(m => Allowed(m.Id))
+        target.Inventories.AddRange(legacy.Inventories
+            .Where(movement => plan.InventoryIds.Contains(movement.Id))
             .Select(LegacyToRebuildMapper.ToInventory));
 
-        target.Appointments.AddRange(legacy.Appointments.Where(a => Allowed(a.Id))
+        target.Appointments.AddRange(legacy.Appointments
+            .Where(appointment => plan.AppointmentIds.Contains(appointment.Id))
             .Select(LegacyToRebuildMapper.ToAppointment));
 
         // No foreign keys on this table, so orphans migrate as-is — GM-019.
-        target.PatientMedicalInfos.AddRange(legacy.PatientMedicalInfos.Where(t => Allowed(t.Id))
+        target.PatientMedicalInfos.AddRange(legacy.PatientMedicalInfos
+            .Where(tag => plan.PatientMedicalInfoIds.Contains(tag.Id))
             .Select(LegacyToRebuildMapper.ToPatientMedicalInfo));
 
         await target.SaveChangesAsync(cancellationToken);
 
-        var migratedBillIds = await target.Prescriptions
-            .Select(bill => bill.Id)
-            .ToListAsync(cancellationToken);
-        var billIdSet = migratedBillIds.ToHashSet();
-
         target.PatientMedicalServices.AddRange(legacy.PatientMedicalServices
-            .Where(item => Allowed(item.Id)
-                && billIdSet.Contains(item.PrescriptionId)
-                && migratedPatientIds.Contains(item.PatientId)
-                && migratedServiceIds.Contains(item.MedicalServiceId))
+            .Where(item => plan.LineItemIds.Contains(item.Id))
             .Select(LegacyToRebuildMapper.ToLineItem));
 
         target.Payments.AddRange(legacy.Payments
-            .Where(payment => Allowed(payment.Id) && billIdSet.Contains(payment.PrescriptionId))
+            .Where(payment => plan.PaymentIds.Contains(payment.Id))
             .Select(LegacyToRebuildMapper.ToPayment));
 
         await target.SaveChangesAsync(cancellationToken);
