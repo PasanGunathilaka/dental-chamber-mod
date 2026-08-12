@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    No PackageReference belongs in this project. The domain model stays free of
+    EF Core and Npgsql so persistence concerns live entirely in
+    DentalManagement.Infrastructure (spec FR-02, design D-1). If a package
+    reference appears here, that separation has been broken.
+  -->
+
+</Project>

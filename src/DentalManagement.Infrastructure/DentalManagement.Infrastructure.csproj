@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DentalManagement.Domain\DentalManagement.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+  </ItemGroup>
+
+  <!--
+    EF Core generates the migration and model-snapshot files; their generated
+    code is not ours to satisfy analyzer-wise. Warnings-as-errors stays on for
+    every hand-written file in this project.
+  -->
+  <ItemGroup>
+    <Compile Update="Persistence\Migrations\**\*.cs">
+      <NoWarn>$(NoWarn);CS8618;CS8619;CS1591</NoWarn>
+    </Compile>
+  </ItemGroup>
+
+</Project>
