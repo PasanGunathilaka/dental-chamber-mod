@@ -28,3 +28,7 @@ TestResults/
 migration-report*.json
 reconciliation-report*.json
 audit-report*.json
+
+## Frontend (client/) build output and dependencies
+client/node_modules
+client/dist
