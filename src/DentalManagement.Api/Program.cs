@@ -17,6 +17,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHealthChecks().AddDbContextCheck<DentalDbContext>();
 
+// BL-020: the first feature endpoint. Controllers give automatic
+// field-scoped ProblemDetails on model validation (spec FR-12); AddProblemDetails
+// extends that RFC 9457 shape to the exception handler and default responses too.
+builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
+
+// CORS for the Vite dev client (design D-8) — the frontend runs on a separate
+// origin/port during development and calls this API directly.
+const string ViteDevClientCorsPolicy = "ViteDevClient";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(ViteDevClientCorsPolicy, policy =>
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 // BL-020's ICurrentUser/IPermissionChecker seams (ST-002, ST-003 — spec FR-14,
 // FR-15; design D-4, D-5) have no real implementation yet: BL-002 and BL-007
 // supply those. The dev-only stubs are wired in only when the host environment
@@ -74,9 +91,12 @@ if (app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
     await scope.ServiceProvider.GetRequiredService<AdminAccountSeeder>().SeedAsync();
 }
 
+app.UseCors(ViteDevClientCorsPolicy);
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHealthChecks("/health");
+app.MapControllers();
 
 app.Run();
