@@ -1,0 +1,26 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!--
+      InvariantGlobalization is deliberately NOT enabled: Microsoft.Data.SqlClient
+      throws "Globalization Invariant Mode is not supported" at runtime, and the
+      one-time migration tool depends on it. Culture-sensitive parsing is pinned to
+      InvariantCulture explicitly at each site instead (see LegacyValueAuditor).
+    -->
+  </PropertyGroup>
+
+  <!--
+    EF Core scaffolds migration files; its generated code trips analyzer and
+    nullability warnings that are not ours to fix. Warnings-as-errors stays on
+    for every hand-written file — see the Migrations-scoped override in
+    DentalManagement.Infrastructure.csproj.
+  -->
+
+</Project>

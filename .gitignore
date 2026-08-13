@@ -1,0 +1,30 @@
+## .NET build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+*.user
+*.suo
+.vs/
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## Local secrets — connection strings and the production admin bootstrap
+## credentials come from environment configuration only (spec FR-03, FR-19).
+appsettings.Local.json
+appsettings.*.Local.json
+*.env
+.env
+.env.*
+secrets.json
+
+## Test and migration output
+TestResults/
+*.trx
+*.coverage
+migration-report*.json
+reconciliation-report*.json
+audit-report*.json

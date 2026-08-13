@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <!--
+      xunit.v3 test projects are self-executing and run on Microsoft.Testing
+      Platform. This property is what lets `dotnet test` drive them; the older
+      VSTest path (Microsoft.NET.Test.Sdk) discovers nothing here.
+    -->
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DentalManagement.Infrastructure\DentalManagement.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <!-- Real PostgreSQL, not the in-memory provider — spec NFR-07, design D-7. -->
+    <PackageReference Include="Testcontainers.PostgreSql" />
+  </ItemGroup>
+
+</Project>

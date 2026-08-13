@@ -1,0 +1,40 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <ItemGroup Label="Persistence">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.11" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup Label="Hosting and configuration">
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <!-- A liveness probe that does not touch the database would not tell an operator
+         anything useful about the one thing this item delivers. -->
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup Label="Legacy source reads (one-time migration tool)">
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Label="Testing">
+    <!-- xunit.v3 brings its own Microsoft.Testing.Platform runner; the VSTest
+         Microsoft.NET.Test.Sdk path discovers no xunit v3 tests. -->
+    <PackageVersion Include="xunit.v3" Version="3.2.2" />
+    <!--
+      Real PostgreSQL / SQL Server in tests, not the EF in-memory provider:
+      cascade chains, unique-index rejection, and numeric precision are exactly
+      what in-memory does not model (spec NFR-07, design D-7).
+    -->
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="4.13.0" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.13.0" />
+  </ItemGroup>
+
+</Project>
