@@ -15,6 +15,9 @@
 
   <ItemGroup Label="Hosting and configuration">
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <!-- A liveness probe that does not touch the database would not tell an operator
+         anything useful about the one thing this item delivers. -->
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup Label="Legacy source reads (one-time migration tool)">
