@@ -95,3 +95,33 @@ Three separate build failures came from environment/toolchain defaults rather th
 On a greenfield .NET solution, validate the toolchain triangle early — test runner discovery, globalization mode against the data providers in use, and solution file format — before writing feature code. Each cost a full build-test cycle to find.
 
 ---
+
+## [L7] spec_gap — spec.md contradicts itself: its Out of Scope list exclude...
+
+**When:** 2026-08-13 04:45 UTC
+**Category:** spec_gap
+**Priority:** medium
+**Status:** pending
+
+### Detail
+spec.md contradicts itself: its Out of Scope list excludes 'CI/CD ... (SQ-011)' while AC-23 requires tests run 'in CI-reproducible fashion'. An acceptance criterion cannot demand what the scope section excludes; verify could only return PARTIAL.
+
+### Action
+When writing an AC that mentions CI, check the scope section first. Either scope the pipeline in or word the AC around the property that actually matters (deterministic, no manual setup beyond a documented daemon).
+
+---
+
+## [L8] pattern — A high-severity transitive vulnerability (SSH.NET 2025.1....
+
+**When:** 2026-08-13 04:45 UTC
+**Category:** pattern
+**Priority:** high
+**Status:** pending
+
+### Detail
+A high-severity transitive vulnerability (SSH.NET 2025.1.0 via Testcontainers, NU1903) was invisible across every build during T1-T16 because the local restore cache was warm, and only surfaced on a clean clone during verify. Structurally identical to the legacy defect BL-001 exists to fix: the EF6 chain also only failed against a genuinely empty database.
+
+### Action
+Add a clean-clone build (fresh clone, cold restore) as an explicit verify gate on any greenfield change. A warm cache hides both NuGet audit findings and restore-order problems.
+
+---

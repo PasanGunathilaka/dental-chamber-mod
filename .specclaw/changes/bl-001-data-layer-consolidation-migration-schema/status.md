@@ -13,7 +13,7 @@
 | Design | 🟡 Draft | 9 key decisions, 9 risks, grounding sources cited |
 | Tasks | ✅ Complete | 16 tasks across 5 waves |
 | Build | ✅ Complete | 16/16 tasks, 0 failed. Merged to `main` (4dfd636). 90 tests pass against real PostgreSQL + SQL Server |
-| Verify | ⚪ Pending | Run `/specclaw:verify`. Two items outstanding — see Issues |
+| Verify | ⚠️ Partial | 22/23 ACs pass. AC-23's "CI-reproducible" clause not met — no pipeline exists, and `spec.md` itself places CI/CD out of scope. Needs a decision, not a fix. See `verify-report.md` |
 
 ## Task Progress
 

@@ -35,6 +35,14 @@
     -->
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.13.0" />
     <PackageVersion Include="Testcontainers.MsSql" Version="4.13.0" />
+    <!--
+      Transitive pin, not a direct dependency. Testcontainers pulls SSH.NET, and
+      2025.1.0 carries a known high-severity advisory
+      (GHSA-q939-rpr3-3284) that TreatWarningsAsErrors correctly turns into a build
+      failure on a clean restore. Pinned forward rather than suppressed — NU1903 is
+      reporting a real vulnerability, and silencing it would keep it.
+    -->
+    <PackageVersion Include="SSH.NET" Version="2026.0.0" />
   </ItemGroup>
 
 </Project>

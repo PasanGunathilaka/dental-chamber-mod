@@ -100,29 +100,29 @@ Two further fixtures are touched by this item's money-type change and are expect
 
 Each criterion must pass for the change to be considered complete.
 
-- **AC-01** — A clean clone restores and builds the solution with no manual steps. *(FR-01)*
-- **AC-02** — The solution contains exactly one `DbContext` and one migrations folder; a search finds no second context and no second migration assembly. *(FR-02)*
-- **AC-03** — Applying the migration chain to an empty PostgreSQL database succeeds in one pass, verified by an automated test that creates a fresh database, migrates it, and asserts every expected table exists. *(FR-16 — the direct guard against the legacy defect)*
-- **AC-04** — The same test asserts no migration step creates an index that an earlier step already created, and the chain contains no `CreateIndex` on `Patient.Code` after `IX_Code` already exists. *(FR-16)*
-- **AC-05** — All sixteen entities are present with the documented required flags, string lengths, and unique indexes; a test asserts each unique index rejects a duplicate at the database level. *(FR-04, FR-09)*
-- **AC-06** — `Gender` accepts only the three enum values, and the column rejects any other value. *(FR-06)*
-- **AC-07** — `TotalCharge` for `Charge = 10.50m, Quantity = 3` equals `31.50m` exactly — no truncation, no exception. *(FR-07, CQ-008)*
-- **AC-08** — Every monetary column is `numeric` with the declared precision; a test asserts a value with two decimal places round-trips unchanged. *(FR-07, NFR-04)*
-- **AC-09** — No `Status` table exists in the migrated schema, and each of the four typed status concepts rejects a value belonging to a different entity's set. *(FR-08)*
-- **AC-10** — **GM-012 replays MATCH**: deleting a patient with 2 prescriptions, 1 `PatientMedicalService` and 1 `Payment` each leaves `prescriptions_remaining_count`, `patient_medical_services_remaining_count`, and `payments_remaining_count` all `0`. *(FR-10)*
-- **AC-11** — **GM-024 replays MATCH**: deleting a product with 3 `Inventory` rows leaves `inventory_rows_remaining_count = 0`. *(FR-10)*
-- **AC-12** — **GM-019 replays MATCH**: deleting a patient with 2 tagged `PatientMedicalInfo` rows leaves `patient_medical_info_rows_remaining_count = 2`, still referencing the deleted patient id. *(FR-10, A5)*
-- **AC-13** — **GM-041 replays MATCH**: `TotalDiscountAmount` for `(0,0)`, `(10.5,5)`, `(0,-5)` returns `0`, `15.5`, `-5`. *(FR-11)*
-- **AC-14** — **GM-039 replays MATCH**: seeding a fresh install creates one `Permission` row per private `Resource`, every row for SystemAdmin, and no other role holds any permission. *(FR-17)*
-- **AC-15** — **GM-040 replays MATCH**: running the seeder again when any `Permission` row exists creates `0` rows. *(FR-17)*
-- **AC-16** — The seeded `Doctor` can be fetched by the exact id the seeder assigned, and an `Appointment` referencing that id inserts without an FK violation. *(FR-18)*
-- **AC-17** — Exactly one user with exactly one primary role can be created; assigning a second role to the same user is rejected. *(FR-14)*
-- **AC-18** — A search of the repository finds no hardcoded password in any non-development seed path, and the production bootstrap path fails with a clear message when its environment credentials are absent rather than falling back to a default. *(FR-19)*
-- **AC-19** — Running the migration tool against a populated synthetic legacy database (or the real export, if supplied) migrates every entity, and the reconciliation report shows matching per-entity row counts and matching `Prescription`/`Payment` monetary totals. *(FR-20, FR-22, A4)*
-- **AC-20** — Given a synthetic legacy row with `Charge = "abc"`, one with `Charge = "10.50"`, a `Gender` of `"Unknown"`, and an `Appointment.StatusId` of `3`, the audit report names all four: the unparsable `"abc"` under `NON_INTEGER_CHARGE`, the out-of-set gender, and the unmappable status — while `"10.50"` migrates successfully as `10.50`. *(FR-21)*
-- **AC-21** — Seeding a deliberate discrepancy (a deleted target row, an altered payment amount) makes the reconciliation check report failure. A reconciliation that cannot fail is not a check. *(FR-22)*
-- **AC-22** — Running the migration tool against a non-empty target either produces the same result as the first run or refuses with a clear message; it never leaves the target half-migrated. *(FR-23)*
-- **AC-23** — Every test in AC-03 through AC-22 runs against a real PostgreSQL instance in CI-reproducible fashion. *(NFR-07)*
+- [ ] **AC-01** — A clean clone restores and builds the solution with no manual steps. *(FR-01)*
+- [ ] **AC-02** — The solution contains exactly one `DbContext` and one migrations folder; a search finds no second context and no second migration assembly. *(FR-02)*
+- [ ] **AC-03** — Applying the migration chain to an empty PostgreSQL database succeeds in one pass, verified by an automated test that creates a fresh database, migrates it, and asserts every expected table exists. *(FR-16 — the direct guard against the legacy defect)*
+- [ ] **AC-04** — The same test asserts no migration step creates an index that an earlier step already created, and the chain contains no `CreateIndex` on `Patient.Code` after `IX_Code` already exists. *(FR-16)*
+- [ ] **AC-05** — All sixteen entities are present with the documented required flags, string lengths, and unique indexes; a test asserts each unique index rejects a duplicate at the database level. *(FR-04, FR-09)*
+- [ ] **AC-06** — `Gender` accepts only the three enum values, and the column rejects any other value. *(FR-06)*
+- [ ] **AC-07** — `TotalCharge` for `Charge = 10.50m, Quantity = 3` equals `31.50m` exactly — no truncation, no exception. *(FR-07, CQ-008)*
+- [ ] **AC-08** — Every monetary column is `numeric` with the declared precision; a test asserts a value with two decimal places round-trips unchanged. *(FR-07, NFR-04)*
+- [ ] **AC-09** — No `Status` table exists in the migrated schema, and each of the four typed status concepts rejects a value belonging to a different entity's set. *(FR-08)*
+- [ ] **AC-10** — **GM-012 replays MATCH**: deleting a patient with 2 prescriptions, 1 `PatientMedicalService` and 1 `Payment` each leaves `prescriptions_remaining_count`, `patient_medical_services_remaining_count`, and `payments_remaining_count` all `0`. *(FR-10)*
+- [ ] **AC-11** — **GM-024 replays MATCH**: deleting a product with 3 `Inventory` rows leaves `inventory_rows_remaining_count = 0`. *(FR-10)*
+- [ ] **AC-12** — **GM-019 replays MATCH**: deleting a patient with 2 tagged `PatientMedicalInfo` rows leaves `patient_medical_info_rows_remaining_count = 2`, still referencing the deleted patient id. *(FR-10, A5)*
+- [ ] **AC-13** — **GM-041 replays MATCH**: `TotalDiscountAmount` for `(0,0)`, `(10.5,5)`, `(0,-5)` returns `0`, `15.5`, `-5`. *(FR-11)*
+- [ ] **AC-14** — **GM-039 replays MATCH**: seeding a fresh install creates one `Permission` row per private `Resource`, every row for SystemAdmin, and no other role holds any permission. *(FR-17)*
+- [ ] **AC-15** — **GM-040 replays MATCH**: running the seeder again when any `Permission` row exists creates `0` rows. *(FR-17)*
+- [ ] **AC-16** — The seeded `Doctor` can be fetched by the exact id the seeder assigned, and an `Appointment` referencing that id inserts without an FK violation. *(FR-18)*
+- [ ] **AC-17** — Exactly one user with exactly one primary role can be created; assigning a second role to the same user is rejected. *(FR-14)*
+- [ ] **AC-18** — A search of the repository finds no hardcoded password in any non-development seed path, and the production bootstrap path fails with a clear message when its environment credentials are absent rather than falling back to a default. *(FR-19)*
+- [ ] **AC-19** — Running the migration tool against a populated synthetic legacy database (or the real export, if supplied) migrates every entity, and the reconciliation report shows matching per-entity row counts and matching `Prescription`/`Payment` monetary totals. *(FR-20, FR-22, A4)*
+- [ ] **AC-20** — Given a synthetic legacy row with `Charge = "abc"`, one with `Charge = "10.50"`, a `Gender` of `"Unknown"`, and an `Appointment.StatusId` of `3`, the audit report names all four: the unparsable `"abc"` under `NON_INTEGER_CHARGE`, the out-of-set gender, and the unmappable status — while `"10.50"` migrates successfully as `10.50`. *(FR-21)*
+- [ ] **AC-21** — Seeding a deliberate discrepancy (a deleted target row, an altered payment amount) makes the reconciliation check report failure. A reconciliation that cannot fail is not a check. *(FR-22)*
+- [ ] **AC-22** — Running the migration tool against a non-empty target either produces the same result as the first run or refuses with a clear message; it never leaves the target half-migrated. *(FR-23)*
+- [ ] **AC-23** — Every test in AC-03 through AC-22 runs against a real PostgreSQL instance in CI-reproducible fashion. *(NFR-07)*
 
 ## Edge Cases
 
