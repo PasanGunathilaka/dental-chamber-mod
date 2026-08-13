@@ -1,5 +1,6 @@
 using DentalManagement.Domain.Abstractions;
 using DentalManagement.Infrastructure.Identity;
+using DentalManagement.Infrastructure.Patients;
 using DentalManagement.Infrastructure.Persistence;
 using DentalManagement.Infrastructure.Persistence.Seeding;
 using DentalManagement.Infrastructure.Time;
@@ -50,6 +51,9 @@ public static class DependencyInjection
 
         services.AddScoped<DatabaseSeeder>();
         services.AddScoped<AdminAccountSeeder>();
+
+        services.AddScoped<PatientCodeSequence>();
+        services.AddScoped<IPatientRegistrationService, PatientRegistrationService>();
 
         return services;
     }

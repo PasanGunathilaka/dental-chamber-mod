@@ -4,21 +4,32 @@ A rebuild of a legacy AngularJS + ASP.NET Web API + SQL Server dental clinic
 system, as React + TypeScript + MUI over an ASP.NET Core Web API and PostgreSQL
 (SQ-001, SQ-002, SQ-006).
 
-This repository currently contains **BL-001 — Data Layer Consolidation, Migration
-& Schema Setup** only: the schema, its migration history, fresh-install seed data,
-and the one-time tool that moves the legacy database into it. There are no feature
-endpoints and no frontend yet — every later item in
-`.specclaw/analysis/rebuild-backlog.md` builds on this.
+This repository contains two backlog items so far:
+
+- **BL-001 — Data Layer Consolidation, Migration & Schema Setup**: the schema, its
+  migration history, fresh-install seed data, and the one-time tool that moves the
+  legacy database into it.
+- **BL-020 — Register New Patient & Auto-Provision Bill**: the first feature slice
+  — one transactional registration operation, `POST /api/patients`, and the first
+  frontend.
+
+Every later item in `.specclaw/analysis/rebuild-backlog.md` builds on these.
+
+**The API does not boot outside Development yet.** BL-020 was built ahead of its
+authentication and authorization dependencies, so those are dev-only stubs and the
+host deliberately refuses to start without them. See "Dependency bypasses" below.
 
 ## Layout
 
 | Project | What it holds |
 |---|---|
-| `src/DentalManagement.Domain` | Entities, enums, `IClock`. No package references beyond the BCL — that constraint is what keeps persistence concerns out of the domain. |
-| `src/DentalManagement.Infrastructure` | The single `DentalDbContext`, per-entity EF configurations, the migration history, seeders, `ApplicationUser`. |
-| `src/DentalManagement.Api` | Host: DI, environment configuration, `/health`. No feature endpoints. |
+| `src/DentalManagement.Domain` | Entities, enums, `IClock`, the registration contract, the pure code formatters. No package references beyond the BCL — that constraint is what keeps persistence concerns out of the domain. |
+| `src/DentalManagement.Infrastructure` | The single `DentalDbContext`, per-entity EF configurations, the migration history, seeders, `ApplicationUser`, the patient-registration service and its code sequence. |
+| `src/DentalManagement.Api` | Host: DI, environment configuration, `/health`, `POST /api/patients`, the permission-policy plumbing, and the dev-only auth stubs. |
 | `src/DentalManagement.DataMigration` | One-time legacy SQL Server → PostgreSQL console tool. |
-| `tests/DentalManagement.Infrastructure.Tests` | Schema, migration, captured-fixture replay, seeding. Real PostgreSQL. |
+| `client` | React 19 + TypeScript + MUI v7 (Vite). The MUI theme carrying the legacy tokens, and the patient-registration screen. |
+| `tests/DentalManagement.Infrastructure.Tests` | Schema, migration, captured-fixture replay, seeding, patient registration. Real PostgreSQL. |
+| `tests/DentalManagement.Api.Tests` | Endpoint behaviour and the stub-scoping gate. Real PostgreSQL. |
 | `tests/DentalManagement.DataMigration.Tests` | The migration tool end to end. Real SQL Server + real PostgreSQL. |
 
 ## Prerequisites
@@ -44,14 +55,18 @@ production admin credentials come from environment configuration only, and the h
 | `AdminBootstrap__UserName` / `AdminBootstrap__Password` | Production administrator. Both required unless demo accounts are enabled. |
 | `AdminBootstrap__AllowDevelopmentDemoAccounts` | `true` seeds the known `superadmin`/`admin` demo accounts. **Local development only** — CQ-017 permits known credentials only in explicitly development seed data. |
 | `Database__MigrateOnStartup` | `true` applies migrations and seeds on boot. Off by default so a rolling deployment cannot race itself. |
+| `DevelopmentAuth__AllowDevelopmentAuthenticationStub` | `true` registers the dev-only authentication and permission stubs. **Only honoured when the environment is Development**, and set only in `appsettings.Development.json`. See "Dependency bypasses". |
 
 ## Running
 
 ```bash
 dotnet build DentalManagement.sln
 
-# Fast tier — schema, fixture replay, seeding (~25s)
+# Fast tier — schema, fixture replay, seeding, patient registration (~25s)
 dotnet test tests/DentalManagement.Infrastructure.Tests/DentalManagement.Infrastructure.Tests.csproj
+
+# Fast tier — endpoint behaviour and the stub-scoping gate
+dotnet test tests/DentalManagement.Api.Tests/DentalManagement.Api.Tests.csproj
 
 # Slow tier — the migration tool end to end (~35s; first run pulls a ~1.7GB SQL Server image)
 dotnet test tests/DentalManagement.DataMigration.Tests/DentalManagement.DataMigration.Tests.csproj
@@ -61,6 +76,46 @@ dotnet test tests/DentalManagement.DataMigration.Tests/DentalManagement.DataMigr
 # Apply the schema to a database by hand
 dotnet ef database update --project src/DentalManagement.Infrastructure
 ```
+
+### The frontend
+
+```bash
+cd client
+npm install
+npm run dev     # http://localhost:5173 — the origin the API's CORS policy allows
+npm run build   # tsc -b && vite build
+npm test        # vitest
+```
+
+The registration screen is at `/patients/new`. It calls `POST /api/patients` at
+`VITE_API_BASE_URL`, defaulting to `http://localhost:5000`.
+
+## Dependency bypasses
+
+BL-020 was built ahead of BL-002 (login/logout) and BL-007 (server-side
+authorization) by explicit human decision, recorded in
+`.specclaw/analysis/module-stubs.md` as `ST-002` and `ST-003`. Both are
+`stub-interface` bypasses: `ICurrentUser` returns a fixed `admin@dev.local`/`Admin`
+identity, and `IPermissionChecker` grants every request.
+
+**Both are registered only inside one gate** in `src/DentalManagement.Api/Program.cs`:
+
+```csharp
+if (builder.Environment.IsDevelopment() && developmentAuthOptions.AllowDevelopmentAuthenticationStub)
+```
+
+Every other boot — including one where the flag is set but the environment is not
+Development — throws at startup naming BL-002 and BL-007, *before* `builder.Build()`
+runs. The host cannot start unprotected; it refuses to start at all. That is
+deliberate, and `tests/DentalManagement.Api.Tests/StubScopingTests.cs` gates it.
+
+The flag lives only in `appsettings.Development.json`. This mirrors the mechanism
+already used for `AdminBootstrap__AllowDevelopmentDemoAccounts` rather than
+inventing a second one.
+
+**Consequence for verification:** every golden-master fixture verifying BL-020 is
+stamped stub-tainted until `ST-002` and `ST-003` retire, even the ones whose seams
+never touch a stub. Taint is stamped per backlog item, not per seam.
 
 ## Migration runbook
 
@@ -157,6 +212,25 @@ fixture.
 - **No ADR records the injectable clock.** `seams.md` flagged it as a genuine open
   item that no PQ or CQ covers. `IClock` exists because this item owns the timestamp
   writes, but the decision is unwritten.
+
+### From BL-020
+
+- **Patient codes now come from a PostgreSQL sequence, not a row count, and no
+  decided CQ sanctions that.** Legacy computed the code as
+  `GetPatientViewModel().Count() + 1`, which is the exact mechanism that produced
+  GM-002's duplicate-code defect. No captured fixture observes the *source* —
+  GM-001/GM-004 take the sequence as an input and GM-003 only requires `P000001`
+  first — so nothing breaks on replay. But it does change behaviour after a patient
+  is deleted: legacy would reissue a code, a sequence will not. PQ-005 covers the
+  *response* to a failed insert, not the *source* of the number. **SQ-012 requires
+  every intentional divergence to be tied to a decided CQ; this one should be raised
+  as a pending question rather than left resting on the spec** (spec Note N-1).
+- **PQ-005 and PQ-008 are still OPEN,** so GM-002 and GM-011 remain PROVISIONAL and
+  BL-020 cannot reach a clean replay PASS — expect `PASS-PENDING-DECISIONS`.
+- **`/specclaw:bf-replay` has not been run for BL-020.** It belongs after
+  `/specclaw:verify`, not inside the build. GM-001, GM-003 and GM-004 are the three
+  fixtures expected to replay; GM-002 and GM-011 are out of this item's scope
+  (spec A6).
 
 ## Human sign-off — the live-build confirmation BL-001 requires
 

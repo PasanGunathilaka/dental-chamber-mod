@@ -76,6 +76,7 @@ public class DentalDbContext(DbContextOptions<DentalDbContext> options)
         MoveIdentityTablesToOwnSchema(builder);
         EnforceOnePrimaryRolePerUser(builder);
         PinTimestampsToLocalWallClock(builder);
+        AddPatientCodeSequence(builder);
     }
 
     /// <summary>
@@ -134,5 +135,24 @@ public class DentalDbContext(DbContextOptions<DentalDbContext> options)
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// DR-001: legacy generated the next patient code from
+    /// <c>GetPatientViewModel().Count() + 1</c> — two concurrent registrations can
+    /// read the same count before either inserts, producing the same code for
+    /// both. That is the exact mechanism behind <c>GM-002</c>'s duplicate-code
+    /// fixture.
+    /// </summary>
+    /// <remarks>
+    /// A PostgreSQL sequence replaces it. <c>nextval</c> is non-blocking and
+    /// transactional-safe, so two concurrent callers are guaranteed two different
+    /// values without either waiting on the other (spec FR-08, A4; AC-06). See
+    /// <see cref="DentalManagement.Infrastructure.Patients.PatientCodeSequence"/>
+    /// for the read side.
+    /// </remarks>
+    private static void AddPatientCodeSequence(ModelBuilder builder)
+    {
+        builder.HasSequence<long>("patient_code_seq").StartsAt(1).IncrementsBy(1);
     }
 }

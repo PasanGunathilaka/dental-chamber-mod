@@ -3,6 +3,7 @@ using System;
 using DentalManagement.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DentalManagement.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DentalDbContext))]
-    partial class DentalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260813060741_AddPatientCodeSequence")]
+    partial class AddPatientCodeSequence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
