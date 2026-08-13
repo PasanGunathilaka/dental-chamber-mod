@@ -26,7 +26,7 @@ public sealed class PatientCodeSequence(DentalDbContext dbContext)
     public async Task<long> NextAsync(CancellationToken cancellationToken)
     {
         return await dbContext.Database
-            .SqlQuery<long>($"SELECT nextval('patient_code_seq')")
+            .SqlQuery<long>($"""SELECT nextval('patient_code_seq') AS "Value" """)
             .SingleAsync(cancellationToken);
     }
 }
