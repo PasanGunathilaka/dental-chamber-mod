@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <!--
+      xunit.v3 test projects are self-executing and run on Microsoft.Testing
+      Platform. This property is what lets `dotnet test` drive them; the older
+      VSTest path (Microsoft.NET.Test.Sdk) discovers nothing here.
+    -->
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- WebApplicationFactory<Program> needs the ASP.NET Core shared framework;
+         this project stays on Microsoft.NET.Sdk (not Sdk.Web) since it is a
+         test project, not a deployable host. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DentalManagement.Api\DentalManagement.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <!-- Real PostgreSQL, not the in-memory provider — spec NFR-01, design D-9. -->
+    <PackageReference Include="Testcontainers.PostgreSql" />
+    <!--
+      Not centrally pinned in Directory.Packages.props (only this project needs
+      it), so its version is overridden here rather than adding a repo-wide
+      entry for a single consumer.
+    -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" VersionOverride="10.0.11" />
+  </ItemGroup>
+
+</Project>
