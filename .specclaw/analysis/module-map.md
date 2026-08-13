@@ -2,7 +2,7 @@
 
 **Path analyzed:** C:\Learnings\Projects\legacy\dental-chamber\Source\App
 **Date analyzed:** 2026-08-11
-**Status:** PROPOSED — awaiting human confirmation
+**Status:** CONFIRMED by Pasan Gunathilaka, 2026-08-12
 
 This is a first-ever generation of this document. The collected JSON's `module_map.prior_modules[]` roster is empty and `next_mod_id` is `MOD-001`, so every module below is newly minted starting at `MOD-001` — there is nothing to reconcile against. `architecture.md`'s own dependency diagrams only document *technical* layering (`Controller → Service → Repository → Models`, uniform across every module), not business-module-level dependency direction — so every `**Depends on:**` claim below is derived from my own reading of controller/service constructor injections during this run, cited per-module, not from `architecture.md`.
 

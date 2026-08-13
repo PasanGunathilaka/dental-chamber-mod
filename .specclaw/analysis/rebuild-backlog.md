@@ -149,7 +149,7 @@
 - baseline/manifest.json: present
 - baseline/scenarios.md: present
 
-**Module map:** PROPOSED — awaiting human confirmation — 5 active module(s)
+**Module map:** CONFIRMED by Pasan Gunathilaka, 2026-08-12
 
 > ⚠ **The module map is not confirmed.** Its `**Status:**` line reads `PROPOSED — awaiting human confirmation`, so the grouping and sequencing below rest on a proposal no human has signed off. Review `.specclaw/analysis/module-map.md` and set its Status to `CONFIRMED by <name>, <date>`. Nothing here is blocked by this — the backlog is complete and usable — but a module boundary nobody checked becomes the shape of the whole migration.
 

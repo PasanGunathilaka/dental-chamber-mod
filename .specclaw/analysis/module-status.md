@@ -1,7 +1,7 @@
 # Module Status: App
 
 **Generated:** 2026-08-12
-**Module map:** PROPOSED — awaiting human confirmation
+**Module map:** CONFIRMED by Pasan Gunathilaka, 2026-08-12
 
 <!--
   A STATUS VIEW, NOT EVIDENCE — and the one document in .specclaw/ that is
@@ -91,6 +91,5 @@
 
 ## Notes
 
-- **The module map is not confirmed** (`PROPOSED — awaiting human confirmation`). Every boundary below rests on a proposal no human has signed off — confirm it by editing `module-map.md`'s `**Status:**` line.
 - A verdict here covers only **module-scoped** replay runs that retained evidence. A change-scoped or `--all` run exercises a module's fixtures too, but records no per-module verdict in its metadata — read that run's report's own **Module Rollup** section instead.
 - No number here says a module is *done*: specclaw records no built state for a backlog item, so these are planning, capture, and comparison coverage only.
