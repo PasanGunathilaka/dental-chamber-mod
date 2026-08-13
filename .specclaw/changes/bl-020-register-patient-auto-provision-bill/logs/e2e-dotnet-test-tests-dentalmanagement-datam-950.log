@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  DentalManagement.Domain -> C:\Learnings\Projects\legacy\dental-chamber-mod\src\DentalManagement.Domain\bin\Debug\net10.0\DentalManagement.Domain.dll
+  DentalManagement.Infrastructure -> C:\Learnings\Projects\legacy\dental-chamber-mod\src\DentalManagement.Infrastructure\bin\Debug\net10.0\DentalManagement.Infrastructure.dll
+  DentalManagement.DataMigration -> C:\Learnings\Projects\legacy\dental-chamber-mod\src\DentalManagement.DataMigration\bin\Debug\net10.0\DentalManagement.DataMigration.dll
+  DentalManagement.DataMigration.Tests -> C:\Learnings\Projects\legacy\dental-chamber-mod\tests\DentalManagement.DataMigration.Tests\bin\Debug\net10.0\DentalManagement.DataMigration.Tests.dll
+  Run tests: 'C:\Learnings\Projects\legacy\dental-chamber-mod\tests\DentalManagement.DataMigration.Tests\bin\Debug\net10.0\DentalManagement.DataMigration.Tests.dll' [net10.0|x64]
+  Passed! - Failed: 0, Passed: 17, Skipped: 0, Total: 17, Duration: 54s 067ms - DentalManagement.DataMigration.Tests.dll (net10.0|x64)
+  Tests succeeded: 'C:\Learnings\Projects\legacy\dental-chamber-mod\tests\DentalManagement.DataMigration.Tests\bin\Debug\net10.0\DentalManagement.DataMigration.Tests.dll' [net10.0|x64]

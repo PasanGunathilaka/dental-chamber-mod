@@ -1,0 +1,8 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  DentalManagement.Domain -> C:\Learnings\Projects\legacy\dental-chamber-mod\src\DentalManagement.Domain\bin\Debug\net10.0\DentalManagement.Domain.dll
+  DentalManagement.Infrastructure -> C:\Learnings\Projects\legacy\dental-chamber-mod\src\DentalManagement.Infrastructure\bin\Debug\net10.0\DentalManagement.Infrastructure.dll
+  DentalManagement.Infrastructure.Tests -> C:\Learnings\Projects\legacy\dental-chamber-mod\tests\DentalManagement.Infrastructure.Tests\bin\Debug\net10.0\DentalManagement.Infrastructure.Tests.dll
+  Run tests: 'C:\Learnings\Projects\legacy\dental-chamber-mod\tests\DentalManagement.Infrastructure.Tests\bin\Debug\net10.0\DentalManagement.Infrastructure.Tests.dll' [net10.0|x64]
+  Passed! - Failed: 0, Passed: 84, Skipped: 0, Total: 84, Duration: 54s 014ms - DentalManagement.Infrastructure.Tests.dll (net10.0|x64)
+  Tests succeeded: 'C:\Learnings\Projects\legacy\dental-chamber-mod\tests\DentalManagement.Infrastructure.Tests\bin\Debug\net10.0\DentalManagement.Infrastructure.Tests.dll' [net10.0|x64]

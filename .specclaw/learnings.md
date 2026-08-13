@@ -125,3 +125,93 @@ A high-severity transitive vulnerability (SSH.NET 2025.1.0 via Testcontainers, N
 Add a clean-clone build (fresh clone, cold restore) as an explicit verify gate on any greenfield change. A warm cache hides both NuGet audit findings and restore-order problems.
 
 ---
+
+## [L9] design_gap — T3 delivered PatientCodeSequence.NextAsync with no test, ...
+
+**When:** 2026-08-13 06:54 UTC
+**Category:** design_gap
+**Priority:** high
+**Status:** pending
+
+### Detail
+T3 delivered PatientCodeSequence.NextAsync with no test, because tasks.md scoped its test to T5's file list. Its raw SqlQuery<long> omitted the AS "Value" alias EF's scalar SqlQuery convention requires, so every call threw 'column s.Value does not exist'. The defect was invisible until T5 consumed it a wave later, and T3 had reported green (build clean, 73/73 pre-existing tests passing) because nothing exercised the new code.
+
+### Action
+When a task delivers a new runtime code path, its own task must include at least one test that executes it. A task whose only verification is 'the build compiles and the pre-existing suite still passes' verifies nothing about what it just added. Check task file lists at plan time for any impl task with no test file of its own.
+
+---
+
+## [L10] pattern — Stub registry Implementation citations are file:line, and...
+
+**When:** 2026-08-13 07:02 UTC
+**Category:** pattern
+**Priority:** medium
+**Status:** pending
+
+### Detail
+Stub registry Implementation citations are file:line, and a later task in the same change edited the cited file (T6 added controllers/CORS to Program.cs), shifting the stub gate from line 33 to 50 and the throw from 48 to 65. The citations written when T1 landed silently went stale mid-build.
+
+### Action
+Re-verify every file:line citation in module-stubs.md after the last task that touches the cited file, not at the moment the stub lands. Cheapest fix is to refresh citations during the close-out task rather than the stub task.
+
+---
+
+## [L11] design_gap — File client/src/App.tsx was modified by T8 but not declar...
+
+**When:** 2026-08-13 07:24 UTC
+**Category:** design_gap
+**Priority:** low
+**Status:** pending
+
+### Detail
+File client/src/App.tsx was modified by T8 but not declared in T8's Files list in tasks.md — the task required wiring the new screen as a route, which necessarily edits the router, yet only the api/ and features/ files were declared.
+
+### Action
+When a task adds a routed screen, a registered service, or anything else that must be referenced from a composition root, declare that composition root (App.tsx, Program.cs, DependencyInjection.cs) in the task's Files list. T5 and T6 hit the same shape and did declare theirs.
+
+---
+
+## [L12] spec_gap — AC-13's third clause asks a test to assert the dev stub t...
+
+**When:** 2026-08-13 07:36 UTC
+**Category:** spec_gap
+**Priority:** medium
+**Status:** pending
+
+### Detail
+AC-13's third clause asks a test to assert the dev stub types are 'absent from the service collection' in a non-Development boot. That is not observable: Program.cs's gate throws before builder.Build(), so no IServiceProvider is ever constructed for such a boot and there is no container to query. T7 substituted the strongest available proof — the factory throws before returning, plus a contrast test showing the same types ARE resolvable in a Development boot, so the gate is shown to discriminate rather than merely always fail.
+
+### Action
+When writing a criterion about a component's absence from a container, first check whether the container is ever built on that path. A fail-fast gate makes 'assert it is not registered' unobservable by construction; the checkable form is 'startup throws with a message naming X, and a contrasting boot does resolve it'.
+
+---
+
+## [L13] design_gap — tasks.md put '/specclaw:bf-replay' inside T9, a build tas...
+
+**When:** 2026-08-13 07:44 UTC
+**Category:** design_gap
+**Priority:** medium
+**Status:** pending
+
+### Detail
+tasks.md put '/specclaw:bf-replay' inside T9, a build task. The bf-replay skill documents itself as running after /specclaw:verify and before /specclaw:pr, so the plan placed a post-verify acceptance gate inside the build phase. T9 delivered the registry and docs; the replay is deferred to after verify and recorded as outstanding in README.md.
+
+### Action
+Do not schedule /specclaw:bf-replay as a build task. Golden-master replay is a verification-phase gate; a build task can at most prepare for it (seam placement, fixture-shaped tests), which T5 already did.
+
+---
+
+## [L14] design_gap — build.test_command in config.yaml still names only tests/...
+
+**When:** 2026-08-13 07:58 UTC
+**Category:** design_gap
+**Priority:** high
+**Status:** pending
+
+### Detail
+build.test_command in config.yaml still names only tests/DentalManagement.Infrastructure.Tests, so finalize reported tests_passed true after running 84 of the 105 tests this change now has. The 12 new DentalManagement.Api.Tests and the 9 client Vitest tests were never executed by the gate that merged the branch. Both were run manually afterwards and passed, but the automated green was narrower than it appeared.
+
+### Action
+When a change adds a test project or a second toolchain, update build.test_command and add a frontend command in the same change. A finalize gate that silently skips a new suite is worse than no gate, because it reads as coverage.
+
+---

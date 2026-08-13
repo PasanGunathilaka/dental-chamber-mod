@@ -1,0 +1,7 @@
+exit=0
+duration_s=433
+log=.specclaw/changes/bl-020-register-patient-auto-provision-bill/logs/test-dotnet-test-tests-dentalmanagement-infra-69.log
+head=9c425d94171fced8bb1708436cf4e7d80d9eff29
+dirty=true
+cmd=dotnet test tests/DentalManagement.Infrastructure.Tests/DentalManagement.Infrastructure.Tests.csproj
+interrupted=false
